@@ -1,0 +1,6 @@
+{
+	"1":{"id":"1","title":"Dragon's Dogma", "platform":"x360","tags":"rpg,action,adventure","cover":"x360-dragon_s_dogma-cover.jpg"},
+	"2":{"id":"2","title":"New Super Mario", "platform":"wii","tags":"plateforme,action","cover":"wii-new_super_mario_bros-cover.jpg"},
+	"3":{"id":"3","title":"Alan Wake", "platform":"x360","tags":"action,adventure","cover":"x360-alan_wake-cover.jpg"}
+
+}
