@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+    
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="css/screen.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap-modal.js"></script>
+    </head>
+    
+    <body>
+      <div class="page">
+        <header class="navbar navbar-inverse navbar-fixed-top">
+		      <div class="navbar-inner">
+		        <div class="container-fluid">
+		          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		          </a>
+		          <a class="brand" href="#">Games</a>
+		          <div class="nav-collapse collapse">
+		            <p class="navbar-text pull-right">
+		              Logged in as <a href="#" class="navbar-link">Username</a>
+		            </p>
+		            <ul class="nav">
+		              <li class="active"><a href="#/home">Home</a></li>
+		              <li><a href="#/games">Games</a></li>
+		              <li><a href="#/movies">Movies</a></li>
+		            </ul>
+		          </div><!--/.nav-collapse -->
+		        </div>
+		      </div>
+		    </header>
+        <section>
+          <div class="alert alert-success  hide">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <h4>Warning!</h4>
+              Please click on a game to see details
+          </div>
+          <div ng-view></div>
+        </section>
+        <footer>
+          <p>&copy; Frédéric Delorme - <a href="http://www.mcgivrer.fr" title="visit official site !">http://www.mcgivrer.fr</a></p>
+        </footer>
+      </div>
+    </body>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>
+    <script type="text/javascript" src="js/filters.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+</html>

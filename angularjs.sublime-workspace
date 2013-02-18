@@ -19,7 +19,7 @@
 			"file": "app/partials/game-list.html",
 			"settings":
 			{
-				"buffer_size": 762,
+				"buffer_size": 773,
 				"line_ending": "Unix"
 			}
 		},
@@ -35,7 +35,7 @@
 			"file": "app/index.html",
 			"settings":
 			{
-				"buffer_size": 2067,
+				"buffer_size": 2090,
 				"line_ending": "Unix"
 			}
 		},
@@ -43,7 +43,7 @@
 			"file": "app/js/controllers.js",
 			"settings":
 			{
-				"buffer_size": 406,
+				"buffer_size": 528,
 				"line_ending": "Unix"
 			}
 		},
@@ -51,7 +51,7 @@
 			"file": "rest/games/games.json",
 			"settings":
 			{
-				"buffer_size": 371,
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		},
@@ -64,10 +64,13 @@
 			}
 		},
 		{
+			"contents": "",
 			"file": "app/partials/game.html",
+			"file_size": -1,
+			"file_write_time": -1,
 			"settings":
 			{
-				"buffer_size": 1074,
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		}
@@ -178,7 +181,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -186,15 +189,15 @@
 					"file": "app/partials/game-list.html",
 					"settings":
 					{
-						"buffer_size": 762,
+						"buffer_size": 773,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								468,
-								468
+								18,
+								18
 							]
 						],
 						"settings":
@@ -240,21 +243,21 @@
 					"file": "app/index.html",
 					"settings":
 					{
-						"buffer_size": 2067,
+						"buffer_size": 2090,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								409,
-								409
+								493,
+								493
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 4,
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -268,15 +271,15 @@
 					"file": "app/js/controllers.js",
 					"settings":
 					{
-						"buffer_size": 406,
+						"buffer_size": 528,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								247,
-								247
+								0,
+								0
 							]
 						],
 						"settings":
@@ -294,22 +297,22 @@
 					"file": "rest/games/games.json",
 					"settings":
 					{
-						"buffer_size": 371,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								221,
-								221
+								0,
+								0
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JSON.tmLanguage"
 						},
-						"translation.x": 106.0,
+						"translation.x": 61.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -346,15 +349,15 @@
 					"file": "app/partials/game.html",
 					"settings":
 					{
-						"buffer_size": 1074,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								35,
-								35
+								0,
+								0
 							]
 						],
 						"settings":

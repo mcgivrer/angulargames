@@ -1,0 +1,10 @@
+{
+	"fr-fr" : {
+		"app.title" : "Ma Liste de Jeux !",
+		"err.no.game" : "Impos²sible de lire la base de jeux"
+	},
+	"en-us" : {
+		"app.title" : "My Games List !",
+		"err.no.game" : "unable to read games database"
+	}
+} 
