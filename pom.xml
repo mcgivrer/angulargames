@@ -55,9 +55,9 @@
 					<wadlFile>${project.build.outputDirectory}/application.wadl</wadlFile>
 					<wadlFile>${basedir}/src/main/resources/application.wadl</wadlFile>
 					<formatWadlFile>true</formatWadlFile>
-					<baseUri>http://localhost:8080/restapi</baseUri>
+					<baseUri>http://localhost:8080/rest</baseUri>
 					<packagesResourceConfig>
-						<param>com.capgemini.captech.angulardemo</param>
+						<param>fr.mcgivrer.applications.angulargames</param>
 					</packagesResourceConfig>
 					<wadlGenerators>
 						<wadlGeneratorDescription>
