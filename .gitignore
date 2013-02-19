@@ -1,0 +1,6 @@
+/target
+/logs
+.project
+.class
+.settings/
+/src/main/resources/application.wadl
