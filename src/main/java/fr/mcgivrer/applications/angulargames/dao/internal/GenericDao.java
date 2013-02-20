@@ -5,6 +5,8 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -22,11 +24,11 @@ import javax.persistence.criteria.CriteriaQuery;
  * @param <T>
  * @param <PK>
  */
+@TransactionManagement(value=TransactionManagementType.BEAN)
 public class GenericDao<T extends Serializable, PK extends Serializable>
 		implements Dao<T, PK> {
 
 	protected Class<T> entityClass;
-
 	@PersistenceContext(name = "application")
 	protected EntityManager entityManager;
 
@@ -37,14 +39,15 @@ public class GenericDao<T extends Serializable, PK extends Serializable>
 		Class<T> class1 = (Class<T>) genericSuperClass.getActualTypeArguments()[0];
 		this.entityClass = class1;
 	}
-	
-	public GenericDao(EntityManager em){
-		entityManager =em;
+
+	public GenericDao(EntityManager em) {
+		entityManager = em;
 	}
 
 	@Override
 	public T save(T entity) {
 		this.entityManager.persist(entity);
+		entity = this.entityManager.merge(entity);
 		return entity;
 	}
 

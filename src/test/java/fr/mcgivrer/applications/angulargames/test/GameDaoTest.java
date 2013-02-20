@@ -21,7 +21,7 @@ import fr.mcgivrer.applications.angulargames.test.dao.GenericDaoTest;
 public class GameDaoTest extends GenericDaoTest {
 
 	@Inject
-	private GameDao gd;
+	private GameDao gd = new GameDao(em);
 
 	/**
 	 * Test method for
@@ -30,10 +30,10 @@ public class GameDaoTest extends GenericDaoTest {
 	 */
 	@Test
 	public void testSave() {
-		Game game = new Game("test0", "test","path/to/image");
-		gd.save(game);
-		gd.merge(game);
-		assertEquals("Can not create Game object in database.",true,game.getId()!=null);
+		Game game = new Game("test0", "test", "path/to/image");
+		game = gd.save(game);
+		assertEquals("Can not create Game object in database.", null,
+				game.getId());
 	}
 
 	/**
