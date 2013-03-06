@@ -12,7 +12,6 @@ import javax.persistence.EntityTransaction;
 import org.junit.After;
 import org.junit.Before;
 import org.reflections.Reflections;
-import org.reflections.scanners.ResourcesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
@@ -29,7 +28,7 @@ public class GenericDaoTest extends DatabaseConfiguration {
 
 	protected static Map<String, Game> dataGame = new HashMap<String, Game>();
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GenericDaoTest() {
 		// Entity Detection configuration
 		ConfigurationBuilder reflectConfig = new ConfigurationBuilder()
@@ -41,7 +40,8 @@ public class GenericDaoTest extends DatabaseConfiguration {
 		Reflections entitiesFilter = new Reflections(reflectConfig);
 		for (Class<?> resource : entitiesFilter
 				.getTypesAnnotatedWith(Resource.class)) {
-			DaoFactory.add(resource.getSimpleName(), (Class<? extends GenericDao>) resource);
+			DaoFactory.add(resource.getSimpleName(),
+					(Class<? extends GenericDao>) resource);
 		}
 
 	}
@@ -82,6 +82,22 @@ public class GenericDaoTest extends DatabaseConfiguration {
 
 	@After
 	public void dropTestdata() {
+
+		EntityTransaction tx = em.getTransaction();
+		try {
+
+			tx.begin();
+			for (Game game : dataGame.values()) {
+				em.remove(game);
+				game = null;
+			}
+
+			tx.commit();
+			dataGame.clear();
+		} catch (Exception e) {
+			tx.rollback();
+
+		}
 	}
 
 }

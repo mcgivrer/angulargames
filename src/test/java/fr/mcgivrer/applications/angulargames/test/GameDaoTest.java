@@ -9,8 +9,6 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.junit.Test;
 
 import fr.mcgivrer.applications.angulargames.dao.GameDao;
@@ -22,8 +20,8 @@ import fr.mcgivrer.applications.angulargames.test.dao.GenericDaoTest;
  * 
  */
 public class GameDaoTest extends GenericDaoTest {
-	@Inject
-	private GameDao gd;
+	//@Inject
+	private GameDao gd = new GameDao(em);
 
 	/**
 	 * Test method for
