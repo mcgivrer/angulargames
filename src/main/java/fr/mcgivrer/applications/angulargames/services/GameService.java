@@ -11,8 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 import fr.mcgivrer.applications.angulargames.dao.GameDao;
 import fr.mcgivrer.applications.angulargames.models.Game;
-
-@Path("/rest/game")
+@Path("/rest/api/game")
 public class GameService {
 	@Inject
 	private GameDao gd;

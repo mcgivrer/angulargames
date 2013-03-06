@@ -5,13 +5,13 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  * GenericDAO providing base of all database operation on entity T.
@@ -24,7 +24,6 @@ import javax.persistence.criteria.CriteriaQuery;
  * @param <T>
  * @param <PK>
  */
-@TransactionManagement(value=TransactionManagementType.BEAN)
 public class GenericDao<T extends Serializable, PK extends Serializable>
 		implements Dao<T, PK> {
 
@@ -41,21 +40,57 @@ public class GenericDao<T extends Serializable, PK extends Serializable>
 	}
 
 	public GenericDao(EntityManager em) {
+		this();
 		entityManager = em;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.mcgivrer.applications.angulargames.dao.internal.Dao#save(java.lang
+	 * .Object)
+	 */
 	@Override
 	public T save(T entity) {
-		this.entityManager.persist(entity);
-		entity = this.entityManager.merge(entity);
+		EntityTransaction tx = entityManager.getTransaction();
+		boolean transactionActive = tx.isActive();
+		try {
+			if (!transactionActive) {
+				tx.begin();
+			}
+
+			this.entityManager.persist(entity);
+			if (!transactionActive) {
+				tx.commit();
+			}
+			// entity = this.entityManager.merge(entity);
+		} catch (Exception e) {
+			tx.rollback();
+		}
+
 		return entity;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.mcgivrer.applications.angulargames.dao.internal.Dao#findById(java.
+	 * io.Serializable)
+	 */
 	@Override
 	public T findById(PK id) {
 		return this.entityManager.find(entityClass, id);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.mcgivrer.applications.angulargames.dao.internal.Dao#findByNamedQuery
+	 * (java.lang.String, java.lang.Object[])
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByNamedQuery(final String name, Object... params) {
@@ -68,6 +103,12 @@ public class GenericDao<T extends Serializable, PK extends Serializable>
 		return (List<T>) query.getResultList();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fr.mcgivrer.applications.angulargames.dao.internal.Dao#
+	 * findByNamedQueryAndNamedParams(java.lang.String, java.util.Map)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByNamedQueryAndNamedParams(final String name,
@@ -81,32 +122,87 @@ public class GenericDao<T extends Serializable, PK extends Serializable>
 		return (List<T>) query.getResultList();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.mcgivrer.applications.angulargames.dao.internal.Dao#merge(java.lang
+	 * .Object)
+	 */
 	@Override
 	public T merge(T entity) {
 		return this.entityManager.merge(entity);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.mcgivrer.applications.angulargames.dao.internal.Dao#delete(java.lang
+	 * .Object)
+	 */
 	@Override
 	public void delete(T entity) {
-		this.entityManager.remove(entity);
+
+		EntityTransaction tx = entityManager.getTransaction();
+		boolean transactionActive = tx.isActive();
+		try {
+
+			if (!transactionActive) {
+				tx.begin();
+			}
+
+			this.entityManager.remove(entity);
+
+			if (!transactionActive) {
+				tx.commit();
+			}
+			// entity = this.entityManager.merge(entity);
+		} catch (Exception e) {
+			tx.rollback();
+		}
+
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fr.mcgivrer.applications.angulargames.dao.internal.Dao#findAll()
+	 */
 	@Override
 	public List<T> findAll() {
 		CriteriaQuery<T> query = this.entityManager.getCriteriaBuilder()
 				.createQuery(entityClass);
+		Root<T> roots = query.from(entityClass);
+		query.select(roots);
+		query.from(entityClass);
 		return find(-1, -1, query);
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fr.mcgivrer.applications.angulargames.dao.internal.Dao#findAll(int,
+	 * int)
+	 */
 	@Override
 	public List<T> findAll(int offset, int page) {
 		CriteriaQuery<T> query = this.entityManager.getCriteriaBuilder()
 				.createQuery(entityClass);
+
+		Root<T> roots = query.from(entityClass);
+		query.select(roots);
+		query.from(entityClass);
 		return find(offset, page, query);
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fr.mcgivrer.applications.angulargames.dao.internal.Dao#countAll()
+	 */
 	@Override
 	public long countAll() {
 		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
@@ -134,6 +230,19 @@ public class GenericDao<T extends Serializable, PK extends Serializable>
 			hq.setMaxResults(maxPage);
 		}
 		return hq.getResultList();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.mcgivrer.applications.angulargames.dao.internal.Dao#setEntityManager
+	 * (javax.persistence.EntityManager)
+	 */
+	@Override
+	public void setEntityManager(EntityManager em) {
+		this.entityManager = em;
+
 	}
 
 }

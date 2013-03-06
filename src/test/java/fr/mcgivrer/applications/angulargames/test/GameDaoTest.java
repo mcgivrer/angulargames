@@ -4,7 +4,10 @@
 package fr.mcgivrer.applications.angulargames.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -19,9 +22,8 @@ import fr.mcgivrer.applications.angulargames.test.dao.GenericDaoTest;
  * 
  */
 public class GameDaoTest extends GenericDaoTest {
-
 	@Inject
-	private GameDao gd = new GameDao(em);
+	private GameDao gd;
 
 	/**
 	 * Test method for
@@ -32,8 +34,8 @@ public class GameDaoTest extends GenericDaoTest {
 	public void testSave() {
 		Game game = new Game("test0", "test", "path/to/image");
 		game = gd.save(game);
-		assertEquals("Can not create Game object in database.", null,
-				game.getId());
+
+		assertNotNull("Can not create Game object in database.", game.getId());
 	}
 
 	/**
@@ -43,7 +45,8 @@ public class GameDaoTest extends GenericDaoTest {
 	 */
 	@Test
 	public void testFindById() {
-		fail("Not yet implemented");
+		Game game = gd.findById(dataGame.get("Dragon's Dogma").getId());
+		assertNotNull("Can not find Game for id = 1", game);
 	}
 
 	/**
@@ -53,7 +56,9 @@ public class GameDaoTest extends GenericDaoTest {
 	 */
 	@Test
 	public void testDelete() {
-		fail("Not yet implemented");
+		gd.delete(dataGame.get("Dragon's Dogma"));
+		Game gameDeleted = gd.findById(dataGame.get("Dragon's Dogma").getId());
+		assertEquals("game was not deleted !", null, gameDeleted);
 	}
 
 	/**
@@ -63,7 +68,8 @@ public class GameDaoTest extends GenericDaoTest {
 	 */
 	@Test
 	public void testFindAll() {
-		fail("Not yet implemented");
+		List<Game> games = gd.findAll();
+		assertEquals("Find all didn't retrieve all games", 4, games.size());
 	}
 
 	/**

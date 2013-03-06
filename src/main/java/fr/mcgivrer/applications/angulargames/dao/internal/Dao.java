@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+
 public interface Dao<T, PK extends Serializable> {
 
 	/**
@@ -92,4 +94,11 @@ public interface Dao<T, PK extends Serializable> {
 	 *            the entity to delete
 	 */
 	void delete(T entity);
+
+	/**
+	 * Set the entityManager for the Dao.
+	 * 
+	 * @param em
+	 */
+	void setEntityManager(EntityManager em);
 }

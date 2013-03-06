@@ -27,7 +27,7 @@ public class Game implements Serializable {
 	 * UID
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	/**
@@ -88,4 +88,10 @@ public class Game implements Serializable {
 		this.platform = platform;
 	}
 
+	@Override
+	public String toString() {
+		return String.format(
+				"Game[id='%d',name='%s',plateform='%s',cover='%s']", this.id,
+				this.name, this.platform, this.cover).toString();
+	}
 }
